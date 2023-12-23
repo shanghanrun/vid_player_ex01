@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class PlayButton extends StatelessWidget {
+class CustomIconButton extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData icon;
-  const PlayButton({required this.onPressed, required this.icon, super.key});
+  const CustomIconButton(
+      {required this.onPressed, required this.icon, super.key});
 
   @override
   Widget build(BuildContext context) {

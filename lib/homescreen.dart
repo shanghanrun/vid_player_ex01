@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vid_player_ex01/custom_video_player.dart';
@@ -11,11 +12,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   XFile? video;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: (video == null) ? renderEmpty() : renderVideo(),
+      body: video == null ? renderEmpty() : renderVideo(),
     );
   }
 
@@ -36,7 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget renderVideo() {
     return Center(
-      child: CustomVideoPlayer(video!), //동영상 재생기위젯
+      child: CustomVideoPlayer(
+          video: video!, onNewVideoPressed: getNewVideo), //동영상 재생기위젯
     );
   }
 
@@ -50,13 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getNewVideo() async {
-    final newVideo = await ImagePicker().pickVideo(
+    final video = await ImagePicker().pickVideo(
       source: ImageSource.gallery,
     );
-
     if (video != null) {
       setState(() {
-        video = newVideo; // this.video = newVideo 해도 된다.
+        this.video = video;
       });
     }
   }
